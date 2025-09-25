@@ -1,6 +1,739 @@
+{% doc %}
+  @prompt
+    Crie uma seção em duas colunas: na coluna esquerda use uma imagem de fundo com overlay claro, centralize verticalmente um título em destaque, um parágrafo curto e um botão de call-to-action que leva para uma collection; na coluna direita exiba um card de produto em formato de slider, mostrando imagem do pack de vinhos, título do produto, preço atual com o antigo riscado, selo de desconto em destaque e botão “Add to Cart”, incluindo navegação para trocar os produtos do slider.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-wine-section-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    gap: 0;}
+
+  .ai-wine-section__left-{{ ai_gen_id }} {
+    position: relative;
+    background-image: url('{{ block.settings.background_image | image_url: width: 800 }}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .ai-wine-section__left-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-wine-section__left-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-wine-section__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  .ai-wine-section__content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 400px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-wine-section__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight:700;
+    margin: 0 0 16px 0;
+    line-height: 1.2;}
+
+  .ai-wine-section__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.5;
+    margin: 0 0 24px 0;opacity: 0.9;
+  }
+
+  .ai-wine-section__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-wine-section__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-wine-section__right-{{ ai_gen_id }} {
+    background-color: {{ block.settings.slider_background_color }};
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-wine-slider-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 350px;
+    position: relative;}
+
+  .ai-wine-slider__container-{{ ai_gen_id }} {
+    overflow: hidden;
+    border-radius: {{ block.settings.card_border_radius }}px;}
+
+  .ai-wine-slider__track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-wine-slider__slide-{{ ai_gen_id }} {
+    min-width: 100%;
+    background-color: {{ block.settings.card_background_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-wine-slider__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-wine-slider__image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-wine-slider__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-wine-slider__image-placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.3;
+  }
+
+  .ai-wine-slider__badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: {{ block.settings.badge_color }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ai-wine-slider__info-{{ ai_gen_id }} {
+    padding: 20px;
+  }
+
+  .ai-wine-slider__title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;color: {{ block.settings.card_text_color }};
+  }
+
+  .ai-wine-slider__price-{{ ai_gen_id }} {
+    margin: 0 0 16px 0;
+  }
+
+  .ai-wine-slider__price-current-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+    margin-right: 8px;
+  }
+
+  .ai-wine-slider__price-old-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .ai-wine-slider__add-to-cart-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    background-color: {{ block.settings.add_to_cart_color }};
+    color: {{ block.settings.add_to_cart_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-wine-slider__add-to-cart-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.add_to_cart_hover_color }};
+  }
+
+  .ai-wine-slider__nav-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.nav_button_color }};
+    color: {{ block.settings.nav_button_text_color }};
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-wine-slider__nav-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_color }};
+  }
+
+  .ai-wine-slider__nav--prev-{{ ai_gen_id }} {
+    left: -20px;
+  }
+
+  .ai-wine-slider__nav--next-{{ ai_gen_id }} {
+    right: -20px;
+  }
+
+  .ai-wine-slider__dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .ai-wine-slider__dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-wine-slider__dot-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.nav_button_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-wine-section-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .ai-wine-section__left-{{ ai_gen_id }},
+    .ai-wine-section__left-placeholder-{{ ai_gen_id }} {
+      min-height: 300px;
+    }
+
+    .ai-wine-section__right-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+
+    .ai-wine-slider__nav-{{ ai_gen_id }} {
+      display: none;
+    }
+  }
+{% endstyle %}<wine-section-{{ ai_gen_id }} class="ai-wine-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-wine-section__left-{{ ai_gen_id }}">
+    {% unless block.settings.background_image %}
+      <div class="ai-wine-section__left-placeholder-{{ ai_gen_id }}">
+        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+      </div>
+    {% endunless %}
+    
+    <div class="ai-wine-section__overlay-{{ ai_gen_id }}"></div>
+    
+    <div class="ai-wine-section__content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-wine-section__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.description != blank %}
+        <p class="ai-wine-section__description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+      {% endif %}
+      
+      {% if block.settings.button_text != blank and block.settings.collection != blank %}
+        <a href="{{ block.settings.collection.url }}" class="ai-wine-section__button-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}</div>
+  </div>
+
+  <div class="ai-wine-section__right-{{ ai_gen_id }}">
+    <div class="ai-wine-slider-{{ ai_gen_id }}">
+      <div class="ai-wine-slider__container-{{ ai_gen_id }}">
+        <div class="ai-wine-slider__track-{{ ai_gen_id }}">
+          {% for i in (1..3) %}
+            {% liquid
+              assign product_key = 'product_' | append: i
+              assign product = block.settings[product_key]
+            %}
+            <div class="ai-wine-slider__slide-{{ ai_gen_id }}" data-slide="{{ forloop.index0 }}">
+              <div class="ai-wine-slider__image-{{ ai_gen_id }}">
+                {% if product and product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    width="400"
+                    height="250"
+                  >
+                {% else %}
+                  <div class="ai-wine-slider__image-placeholder-{{ ai_gen_id }}">
+                    {{ 'product-apparel-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+                {% if product and product.compare_at_price > product.price %}
+                  {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                  <div class="ai-wine-slider__badge-{{ ai_gen_id }}">
+                    -{{ discount }}%
+                  </div>
+                {% endif %}
+              </div>
+              
+              <div class="ai-wine-slider__info-{{ ai_gen_id }}">
+                {% if product %}
+                  <h3 class="ai-wine-slider__title-{{ ai_gen_id }}">{{ product.title }}</h3>
+                  <div class="ai-wine-slider__price-{{ ai_gen_id }}">
+                    <span class="ai-wine-slider__price-current-{{ ai_gen_id }}">{{ product.price | money }}</span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="ai-wine-slider__price-old-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                  </div><button
+                    class="ai-wine-slider__add-to-cart-{{ ai_gen_id }}"
+                    data-product-id="{{ product.id }}"
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  >
+                    {{ block.settings.add_to_cart_text }}
+                  </button>
+                {% else %}
+                  <h3 class="ai-wine-slider__title-{{ ai_gen_id }}">Selecione um produto</h3>
+                  <div class="ai-wine-slider__price-{{ ai_gen_id }}">
+                    <span class="ai-wine-slider__price-current-{{ ai_gen_id }}">R$ 0,00</span>
+                </div>
+                  <button class="ai-wine-slider__add-to-cart-{{ ai_gen_id }}" disabled>
+                    {{ block.settings.add_to_cart_text }}
+                  </button>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--prev-{{ ai_gen_id }}" aria-label="Produto anterior">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      
+      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--next-{{ ai_gen_id }}" aria-label="Próximo produto">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+      
+      <div class="ai-wine-slider__dots-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          <button 
+            class="ai-wine-slider__dot-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}"
+            data-slide="{{ forloop.index0 }}"
+            aria-label="Ir para produto {{ forloop.index }}"
+          ></button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</wine-section-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  class WineSection{{ ai_gen_id }} extends HTMLElement {
+    constructor() {
+      super();
+      this.currentSlide = 0;
+      this.totalSlides = 3;
+    }
+
+    connectedCallback() {
+      this.track = this.querySelector('.ai-wine-slider__track-{{ ai_gen_id }}');
+      this.prevBtn = this.querySelector('.ai-wine-slider__nav--prev-{{ ai_gen_id }}');
+      this.nextBtn = this.querySelector('.ai-wine-slider__nav--next-{{ ai_gen_id }}');
+      this.dots = this.querySelectorAll('.ai-wine-slider__dot-{{ ai_gen_id }}');
+      this.addToCartBtns = this.querySelectorAll('.ai-wine-slider__add-to-cart-{{ ai_gen_id }}');
+
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      this.prevBtn.addEventListener('click', () => this.previousSlide());
+      this.nextBtn.addEventListener('click', () => this.nextSlide());
+      
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.goToSlide(index));
+      });
+
+      this.addToCartBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => this.handleAddToCart(e));
+      });
+
+      let startX = 0;
+      let endX = 0;
+
+      this.track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      });
+
+      this.track.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            this.nextSlide();
+          } else {
+            this.previousSlide();
+          }
+        }
+      });
+    }
+
+    updateSlider() {
+      const translateX = -this.currentSlide * 100;
+      this.track.style.transform = `translateX(${translateX}%)`;
+      
+      this.dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === this.currentSlide);
+      });
+    }
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+      this.updateSlider();
+    }
+
+    previousSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+      this.updateSlider();
+    }
+
+    goToSlide(index) {
+      this.currentSlide = index;
+      this.updateSlider();
+    }
+
+    handleAddToCart(e) {
+      const button = e.target;
+      const variantId = button.dataset.variantId;
+      
+      if (!variantId) return;
+
+      const formData = {
+        'items': [{
+          'id': variantId,
+          'quantity': 1
+        }]
+      };
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        const originalText = button.textContent;
+        button.textContent = 'Adicionado!';
+        button.disabled = true;
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        }, 2000);document.dispatchEvent(new CustomEvent('cart:updated'));
+      })
+      .catch(error => {
+        console.error('Erro ao adicionar ao carrinho:', error);
+      });
+    }
+  }
+
+  customElements.define('wine-section-{{ ai_gen_id }}', WineSection{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Seção de vinhos",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagem de fundo"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Imagem de fundo"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Cor do overlay",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacidade do overlay",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Vinhos Premium"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição",
+      "default": "Descubra nossa seleção exclusiva de vinhos premium, cuidadosamente escolhidos para proporcionar experiências únicas."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do botão",
+      "default": "Ver coleção"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "header",
+      "content": "Produtosdo slider"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Produto 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Produto 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Produto 3"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Texto do botão adicionar",
+      "default": "Adicionar ao carrinho"
+    },
+    {
+      "type": "header",
+      "content": "Coresdo conteúdo"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Cor do botão",
+      "default": "#8B0000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Cor do texto do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Cor do botão ao passar o mouse",
+      "default": "#660000"
+    },
+    {
+      "type": "header",
+      "content": "Coresdo slider"
+    },
+    {
+      "type": "color",
+      "id": "slider_background_color",
+      "label": "Fundo do slider",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Fundo do card",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Cor do texto do card",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Cor do preço",
+      "default": "#8B0000"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Cor do selo de desconto",
+      "default": "#ff4444"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Cor do texto do selo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "add_to_cart_color",
+      "label": "Cor do botão adicionar",
+      "default": "#8B0000"
+    },
+    {
+      "type": "color",
+      "id": "add_to_cart_text_color",
+      "label": "Cor do texto do botão adicionar",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "add_to_cart_hover_color",
+      "label": "Cor do botão adicionar ao passar o mouse",
+      "default": "#660000"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Cor dos botões de navegação",
+      "default": "#8B0000"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_text_color",
+      "label": "Cor dosícones de navegação",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_color",
+      "label": "Cor dos botões de navegação ao passar o mouse",
+      "default": "#660000"
+    },
+    {
+      "type": "header",
+      "content": "Tamanhos"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do título",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da descrição",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento dos botões",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento do card",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seção de vinhos"
+    }
+  ]
+}
 {% endschema %}
