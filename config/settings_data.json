@@ -276,9 +276,9 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "rgba(0,0,0,0)",
-          "foreground_heading": "#ffffff",
-          "foreground": "#ffffff",
+          "background": "#f5f3ef",
+          "foreground_heading": "#3d3d3d",
+          "foreground": "#3d3d3d",
           "primary": "#ffffff",
           "primary_hover": "#ffffffb0",
           "border": "#e6e6e6",
