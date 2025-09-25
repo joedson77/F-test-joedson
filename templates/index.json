@@ -9,61 +9,69 @@
  */
 {
   "sections": {
-    "175882545964e249d6": {
+    "175882760597fcf5a9": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_7ab461c_NRbYrT": {
-          "type": "ai_gen_block_7ab461c",
+        "ai_gen_block_9f10ad1_Vbw3FQ": {
+          "type": "ai_gen_block_9f10ad1",
           "settings": {
             "title": "How Splash Works",
-            "description": "<p><br/>Splash is about <strong>you</strong>. That means we work hard to provide an amazing selection of wine at the best<br/>values. Never any obligation or auto-enrollment, simply choose the option that is best for you.<br/><br/></p>",
+            "description": "<p>Splash is about <strong>you</strong>. That means we work hard to provide an amazing selection of wine at the best values. Never any obligation or auto-enrollment, simply choose the option that is best for you.</p>",
             "block_1_image": "shopify://shop_images/bottles-icon.png",
-            "block_1_text": "<p><br/>With plenty of options, expertly selected, our <strong>curated cases</strong> are perfect for exploring new wines<br/><br/></p>",
+            "block_1_text": "<p>With plenty of options, expertly selected, our curated cases are perfect for exploring new wines.</p>",
             "block_1_link_text": "Shop Curated Cases",
-            "block_1_link_url": "shopify://collections/new-arrivals",
+            "block_1_link_url": "shopify://collections/limited-release-cases",
             "block_2_image": "shopify://shop_images/box-icon.png",
-            "block_2_text": "<p>Know what you like? Start from scratch and <strong>build your own 15-bottle case</strong>, bottle by bottle.<br/></p>",
+            "block_2_text": "<p>Know what you like? Start from scratch and build your own 15-bottle case, bottle by bottle.<br/><br/></p>",
             "block_2_link_text": "Build Your Own Case",
             "block_2_link_url": "shopify://collections/limited-release-cases",
             "bottom_image": "shopify://shop_images/Stylized_Icons.png",
             "bottom_title": "Join our Wine Club",
-            "bottom_text": "<p>Join thousands of satisfied customers and experience the difference for yourself.</p>",
-            "bottom_button_text": "At Splash, subscribing to regular shipments is a benefit - you get consistently great pricesand you are totally in control. As an added bonus, if you subscribe today, you ll get $20 offyour first shipment - just use the code SUBSCRIBE at checkout! That means you that can get15 bottles for just $69 + FREE Shipping - our best ever price!",
+            "bottom_text": "<p><br/>At Splash, subscribing to regular shipments is a benefit - you get consistently great prices and you are totally in control. As an added bonus, if you subscribe today, you ll get $20 off your first shipment - just use the code <strong>SUBSCRIBE </strong>at checkout! That means you that can get <strong>15 bottles for just $69 + FREE Shipping</strong> - our best ever price!<br/><br/></p>",
+            "bottom_button_text": "Learn More",
             "bottom_button_url": "shopify://collections/limited-release-cases",
             "background_color": "#ffffff",
             "title_color": "#000000",
             "text_color": "#666666",
-            "block_background_color": "#f8f8f8",
+            "block_background_color": "#f9f9f9",
             "block_text_color": "#333333",
-            "link_color": "#0066cc",
-            "link_hover_color": "#004499",
-            "bottom_block_background_color": "#f0f0f0",
+            "link_background_color": "#000000",
+            "link_text_color": "#ffffff",
+            "link_hover_background_color": "#333333",
+            "link_hover_text_color": "#ffffff",
+            "bottom_content_background_color": "#f5f5f5",
             "bottom_title_color": "#000000",
-            "bottom_text_color": "#555555",
-            "button_background_color": "#000000",
-            "button_text_color": "#ffffff",
-            "button_hover_background_color": "#333333",
-            "button_hover_text_color": "#ffffff",
-            "title_size": 32,
+            "bottom_text_color": "#333333",
+            "bottom_button_background_color": "#000f9f",
+            "bottom_button_text_color": "#ffffff",
+            "bottom_button_hover_background_color": "#000000",
+            "bottom_button_hover_text_color": "#ffffff",
+            "title_size": 36,
             "text_size": 16,
             "block_text_size": 14,
-            "link_size": 14,
-            "bottom_title_size": 24,
+            "link_text_size": 14,
+            "bottom_title_size": 28,
             "bottom_text_size": 16,
-            "button_text_size": 14,
+            "bottom_button_text_size": 16,
             "section_padding_top": 60,
             "section_padding_bottom": 60,
+            "blocks_gap": 32,
+            "content_gap": 24,
+            "block_padding": 24,
+            "bottom_section_gap": 40,
+            "bottom_content_padding": 32,
             "block_border_radius": 8,
             "image_border_radius": 6,
-            "bottom_image_border_radius": 6,
-            "bottom_block_border_radius": 8,
-            "button_border_radius": 6
+            "link_border_radius": 4,
+            "bottom_image_border_radius": 8,
+            "bottom_content_border_radius": 8,
+            "bottom_button_border_radius": 6
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_7ab461c_NRbYrT"
+        "ai_gen_block_9f10ad1_Vbw3FQ"
       ],
       "settings": {
         "content_direction": "column",
@@ -77,7 +85,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-6",
+        "color_scheme": "",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -414,7 +422,7 @@
     }
   },
   "order": [
-    "175882545964e249d6",
+    "175882760597fcf5a9",
     "hero_jVaWmY",
     "collection_list_tKGy38",
     "17588231002c981961"
