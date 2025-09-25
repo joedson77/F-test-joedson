@@ -231,9 +231,16 @@
       ],
       "name": "t:names.collections_carousel",
       "settings": {
-        "collection_list": [],
-        "layout_type": "carousel",
-        "carousel_on_mobile": false,
+        "collection_list": [
+          "limited-release-cases-1",
+          "limited-release-cases",
+          "rob-s-october-picks",
+          "top-sellers",
+          "splurge-worthy-cases",
+          "new-arrivals"
+        ],
+        "layout_type": "grid",
+        "carousel_on_mobile": true,
         "columns": 6,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
@@ -241,7 +248,7 @@
         "bento_gap": 8,
         "rows_gap": 8,
         "max_collections": 4,
-        "icons_style": "arrow",
+        "icons_style": "none",
         "icons_shape": "circle",
         "section_width": "page-width",
         "gap": 12,
