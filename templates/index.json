@@ -15,7 +15,7 @@
         "ai_gen_block_dbc4ecb_rWbM3f": {
           "type": "ai_gen_block_dbc4ecb",
           "settings": {
-            "section_bg_color": "#f5f3ef",
+            "section_bg_color": "rgba(0,0,0,0)",
             "collection_header_text": "Cheers To Summer!",
             "collection_1": "limited-release-cases-1",
             "collection_2": "new-arrivals",
@@ -64,7 +64,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-6",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -718,9 +718,9 @@
     }
   },
   "order": [
-    "17588231002c981961",
     "hero_jVaWmY",
     "collection_list_tKGy38",
+    "17588231002c981961",
     "product_list_fa6P9H",
     "product_list_wDVwEL"
   ]
