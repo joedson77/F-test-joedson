@@ -1,6 +1,673 @@
+{% doc %}
+  @prompt
+    a section with a list of collections in the form of an in-line menu where the first collection is selected, below the menu appear cards are products to add to the cart in a slider, navigation arrows should be on the sides of the section, the active collection should be underlined, I want to edit the button border color, remove the shadow from the cards, faltou só o titulo da section
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-menu-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;}
+
+  .ai-section-title-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-section-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+
+  .ai-section-subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.subheading_color }};
+    margin: 0;
+  }
+
+  .ai-collection-tabs-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid {{ block.settings.tab_border_color }};
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .ai-collection-tab-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    color: {{ block.settings.tab_text_color }};
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .ai-collection-tab-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.tab_hover_color }};
+  }
+
+  .ai-collection-tab-{{ ai_gen_id }}.active {
+    color: {{ block.settings.tab_active_color }};
+  }
+
+  .ai-collection-tab-{{ ai_gen_id }}.active::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: {{ block.settings.tab_active_color }};
+  }
+
+  .ai-products-container-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-products-slider-{{ ai_gen_id }} {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .ai-products-slider-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-product-card-{{ ai_gen_id }} {
+    flex: 0 0 280px;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 20px;
+    border: 1px solid {{ block.settings.card_border_color }};
+  }
+
+  .ai-product-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+  }
+
+  .ai-product-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: {{ block.settings.product_title_color }};
+  }
+
+  .ai-product-price-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 15px;
+    color: {{ block.settings.product_price_color }};
+  }
+
+  .ai-add-to-cart-btn-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border:2px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-add-to-cart-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-nav-arrow-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: {{ block.settings.arrow_background }};
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-nav-arrow-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.arrow_hover_background }};
+  }
+
+  .ai-nav-arrow-{{ ai_gen_id }}.prev {
+    left: -25px;
+  }
+
+  .ai-nav-arrow-{{ ai_gen_id }}.next {
+    right: -25px;
+  }
+
+  .ai-nav-arrow-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+    fill: {{ block.settings.arrow_color }};
+  }
+
+  .ai-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px20px;
+    color: #666;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-collection-tabs-{{ ai_gen_id }} {
+      gap: 20px;
+      justify-content: flex-start;
+    }
+
+    .ai-product-card-{{ ai_gen_id }} {
+      flex: 0 0 250px;
+    }
+
+    .ai-nav-arrow-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-section-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+
+    .ai-section-subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}<collection-menu-{{ ai_gen_id }}
+  class="ai-collection-menu-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.heading != blank or block.settings.subheading != blank %}
+    <div class="ai-section-title-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-section-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.subheading != blank %}
+        <p class="ai-section-subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-collection-tabs-{{ ai_gen_id }}">
+    {% for i in (1..5) %}
+      {% assign collection_key = 'collection_' | append: i %}
+      {% assign collection = block.settings[collection_key] %}
+      {% if collection != blank %}
+        <button
+          class="ai-collection-tab-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"
+          data-collection-handle="{{ collection.handle }}"
+          data-collection-id="{{ collection.id }}"
+        >
+          {{ collection.title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="ai-products-container-{{ ai_gen_id }}">
+    <button class="ai-nav-arrow-{{ ai_gen_id }} prev" aria-label="Previous products">
+      <svg viewBox="0 0 24 24">
+        <path d="M1518l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <div class="ai-products-slider-{{ ai_gen_id }}" id="ai-products-slider-{{ ai_gen_id }}">
+      {% assign first_collection = blank %}
+      {% for i in (1..5) %}
+        {% assign collection_key = 'collection_' | append: i %}
+        {% assign collection = block.settings[collection_key] %}
+        {% if collection != blank and first_collection == blank %}
+          {% assign first_collection = collection %}{% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if first_collection != blank %}
+        {% for product in first_collection.products limit: 10 %}
+          <div class="ai-product-card-{{ ai_gen_id }}">
+            <div class="ai-product-image-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 300}}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                >
+              {% else %}
+                <div class="ai-product-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+
+            <h3 class="ai-product-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+            <div class="ai-product-price-{{ ai_gen_id }}">{{ product.price | money }}</div>
+
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button
+                type="submit"
+                class="ai-add-to-cart-btn-{{ ai_gen_id }}"
+                {% unless product.available %}disabled{% endunless %}
+              >
+                {% if product.available %}
+                  Add to cart
+                {% else %}Sold out
+                {% endif %}
+              </button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="ai-empty-state-{{ ai_gen_id }}">
+          <p>Please select collections to display products</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <button class="ai-nav-arrow-{{ ai_gen_id }} next" aria-label="Next products">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</collection-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollectionMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentCollectionId = null;
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-collection-tab-{{ ai_gen_id }}');
+        this.slider = this.querySelector('.ai-products-slider-{{ ai_gen_id }}');
+        this.prevBtn = this.querySelector('.ai-nav-arrow-{{ ai_gen_id }}.prev');
+        this.nextBtn = this.querySelector('.ai-nav-arrow-{{ ai_gen_id }}.next');
+
+        this.setupEventListeners();
+        this.setActiveCollection();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', () => this.switchCollection(tab));
+        });
+
+        this.prevBtn.addEventListener('click', () => this.scrollSlider('prev'));
+        this.nextBtn.addEventListener('click', () => this.scrollSlider('next'));
+      }
+
+      setActiveCollection() {
+        const activeTab = this.querySelector('.ai-collection-tab-{{ ai_gen_id }}.active');
+        if (activeTab) {
+          this.currentCollectionId = activeTab.dataset.collectionId;
+        }
+      }
+
+      async switchCollection(clickedTab) {
+        this.tabs.forEach(tab => tab.classList.remove('active'));
+        clickedTab.classList.add('active');
+
+        const collectionId = clickedTab.dataset.collectionId;
+        this.currentCollectionId = collectionId;
+
+        await this.loadCollectionProducts(collectionId);
+      }
+
+      async loadCollectionProducts(collectionId) {
+        try {
+          const response = await fetch(`/collections/${collectionId}/products.json?limit=10`);
+          const data = await response.json();
+          this.renderProducts(data.products);
+        } catch (error) {
+          console.error('Error loading products:', error);
+          this.slider.innerHTML = '<div class="ai-empty-state-{{ ai_gen_id }}"><p>Error loading products</p></div>';
+        }
+      }
+
+      renderProducts(products) {
+        if (products.length === 0) {
+          this.slider.innerHTML = '<div class="ai-empty-state-{{ ai_gen_id }}"><p>No products found in this collection</p></div>';
+          return;
+        }
+
+        const productsHTML = products.map(product => {
+          const variant = product.variants[0];
+          const imageHTML = product.images.length > 0
+            ? `<img src="${product.images[0].src}&width=300" alt="${product.images[0].alt || product.title}" loading="lazy" width="300" height="300">`
+            : '<div class="ai-product-image-placeholder-{{ ai_gen_id }}">{{ "product-1" | placeholder_svg_tag }}</div>';
+
+          return `
+            <div class="ai-product-card-{{ ai_gen_id }}">
+              <div class="ai-product-image-{{ ai_gen_id }}">
+                ${imageHTML}
+              </div>
+              <h3 class="ai-product-title-{{ ai_gen_id }}">${product.title}</h3>
+              <div class="ai-product-price-{{ ai_gen_id }}">${this.formatMoney(variant.price)}</div>
+              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="${variant.id}">
+                <button
+                  type="submit"
+                  class="ai-add-to-cart-btn-{{ ai_gen_id }}"
+                  ${!variant.available ? 'disabled' : ''}
+                >
+                  ${variant.available ? 'Add to cart' : 'Sold out'}
+                </button>
+              </form>
+            </div>
+          `;
+        }).join('');
+
+        this.slider.innerHTML = productsHTML;
+      }
+
+      formatMoney(cents) {
+        return (cents / 100).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        });
+      }
+
+      scrollSlider(direction) {
+        const scrollAmount = 300;
+        const currentScroll = this.slider.scrollLeft;
+
+        if (direction === 'prev') {
+          this.slider.scrollTo({
+            left: currentScroll - scrollAmount,
+            behavior: 'smooth'
+          });
+        } else {
+          this.slider.scrollTo({
+            left: currentScroll + scrollAmount,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+
+    customElements.define('collection-menu-{{ ai_gen_id }}', CollectionMenu{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Collection menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section title"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Collection"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover our curated collections"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection 3"
+    },
+    {
+      "type": "collection",
+      "id": "collection_4",
+      "label": "Collection 4"
+    },
+    {
+      "type": "collection",
+      "id": "collection_5",
+      "label": "Collection 5"
+    },
+    {
+      "type": "header",
+      "content": "Tab style"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_color",
+      "label": "Hover color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "header",
+      "content": "Product cards"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Price color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Add to cart button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Navigation arrows"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection menu"
+    }
+  ]
+}
 {% endschema %}
