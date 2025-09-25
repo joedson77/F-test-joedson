@@ -46,6 +46,9 @@
       "block_order": [
         "ai_gen_block_eed6794_agm77N"
       ],
+      "custom_css": [
+        "div{width: 100%;}"
+      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
