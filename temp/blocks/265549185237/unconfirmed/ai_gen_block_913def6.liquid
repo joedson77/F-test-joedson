@@ -1,6 +1,641 @@
+{% doc %}
+  @prompt
+    create a section that has a title, a text below the title, below that text two blocks in the same line that have in each block two columns, in the first an image and in the second a text and below a link, below these two blocks that have two columns above there will be two columns also the first a simple image with 25% of the screen size and the other column a block with title text and a button, o texto e imagens não estão aparecendo, creio que seja conflito com outra section gerada por IA
+
+{% enddoc %}
+{% assign ai_gen_id = section.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-content-section-{{ ai_gen_id }} {
+    padding: {{ section.settings.section_padding }}px 20px;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__title-{{ ai_gen_id }} {
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_size }}px;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__description-{{ ai_gen_id }} {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_size }}px;
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__blocks-row-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    background-color: {{ section.settings.block_background_color }};
+    padding: {{ section.settings.block_padding }}px;
+    border-radius: {{ section.settings.block_border_radius }}px;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 200px;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 200px;
+    background-color: #f4f4f4;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-text-{{ ai_gen_id }} {
+    color: {{ section.settings.block_text_color }};
+    font-size: {{ section.settings.block_text_size }}px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-link-{{ ai_gen_id }} {
+    color: {{ section.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.link_size }}px;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-link-{{ ai_gen_id }}:hover {
+    color: {{ section.settings.link_hover_color }};
+    text-decoration: underline;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-row-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ section.settings.bottom_image_border_radius }}px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 250px;
+    background-color: #f4f4f4;
+    border-radius: {{ section.settings.bottom_image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-image-placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-title-{{ ai_gen_id }} {
+    color: {{ section.settings.bottom_title_color }};
+    font-size: {{ section.settings.bottom_title_size }}px;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-text-{{ ai_gen_id }} {
+    color: {{ section.settings.bottom_text_color }};
+    font-size: {{ section.settings.bottom_text_size }}px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    font-size: {{ section.settings.button_text_size }}px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+  }
+
+  .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-button-{{ ai_gen_id }}:hover {
+    background-color: {{ section.settings.button_hover_background_color }};
+    color: {{ section.settings.button_hover_text_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-content-section-{{ ai_gen_id }} .ai-content-section__blocks-row-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-content-section-{{ ai_gen_id }} .ai-content-section__block-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-row-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-content-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-content-section-{{ ai_gen_id }} .ai-content-section__bottom-button-{{ ai_gen_id }} {
+      align-self: center;
+    }
+  }
+{% endstyle %}
+
+<section class="ai-content-section-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+  <div class="ai-content-section__container-{{ ai_gen_id }}">
+    <div class="ai-content-section__header-{{ ai_gen_id }}">
+      {% if section.settings.title != blank %}
+        <h2 class="ai-content-section__title-{{ ai_gen_id }}">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="ai-content-section__description-{{ ai_gen_id }}">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="ai-content-section__blocks-row-{{ ai_gen_id }}">
+      <div class="ai-content-section__block-{{ ai_gen_id }}">
+        <div>
+          {% if section.settings.block_1_image %}
+            <img
+              src="{{ section.settings.block_1_image | image_url: width: 400 }}"
+              alt="{{ section.settings.block_1_image.alt | escape }}"
+              class="ai-content-section__block-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="400"
+              height="200"
+            >
+          {% else %}
+            <div class="ai-content-section__block-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="ai-content-section__block-content-{{ ai_gen_id }}">
+          {% if section.settings.block_1_text != blank %}
+            <div class="ai-content-section__block-text-{{ ai_gen_id }}">{{ section.settings.block_1_text }}</div>
+          {% endif %}
+          {% if section.settings.block_1_link_text != blank and section.settings.block_1_link_url != blank %}
+            <a href="{{ section.settings.block_1_link_url }}" class="ai-content-section__block-link-{{ ai_gen_id }}">
+              {{ section.settings.block_1_link_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-content-section__block-{{ ai_gen_id }}">
+        <div>
+          {% if section.settings.block_2_image %}
+            <img
+              src="{{ section.settings.block_2_image | image_url: width: 400 }}"
+              alt="{{ section.settings.block_2_image.alt | escape }}"
+              class="ai-content-section__block-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="400"
+              height="200"
+            >
+          {% else %}
+            <div class="ai-content-section__block-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="ai-content-section__block-content-{{ ai_gen_id }}">
+          {% if section.settings.block_2_text != blank %}
+            <div class="ai-content-section__block-text-{{ ai_gen_id }}">{{ section.settings.block_2_text }}</div>
+          {% endif %}
+          {% if section.settings.block_2_link_text != blank and section.settings.block_2_link_url != blank %}
+            <a href="{{ section.settings.block_2_link_url }}" class="ai-content-section__block-link-{{ ai_gen_id }}">
+              {{ section.settings.block_2_link_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-content-section__bottom-row-{{ ai_gen_id }}">
+      <div>
+        {% if section.settings.bottom_image %}
+          <img
+            src="{{ section.settings.bottom_image | image_url: width: 600 }}"
+            alt="{{ section.settings.bottom_image.alt | escape }}"
+            class="ai-content-section__bottom-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="300"
+            height="250"
+          >
+        {% else %}
+          <div class="ai-content-section__bottom-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="ai-content-section__bottom-content-{{ ai_gen_id }}">
+        {% if section.settings.bottom_title != blank %}
+          <h3 class="ai-content-section__bottom-title-{{ ai_gen_id }}">{{ section.settings.bottom_title }}</h3>
+        {% endif %}
+        {% if section.settings.bottom_text != blank %}
+          <div class="ai-content-section__bottom-text-{{ ai_gen_id }}">{{ section.settings.bottom_text }}</div>
+        {% endif %}
+        {% if section.settings.bottom_button_text != blank and section.settings.bottom_button_url != blank %}
+          <a href="{{ section.settings.bottom_button_url }}" class="ai-content-section__bottom-button-{{ ai_gen_id }}">
+            {{ section.settings.bottom_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Content section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Features"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover what makes us different with our comprehensive feature set.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Block 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "block_1_text",
+      "label": "Text",
+      "default": "<p>Feature description that explains the benefits and value proposition.</p>"
+    },
+    {
+      "type": "text",
+      "id": "block_1_link_text",
+      "label": "Link text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "block_1_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Block 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "block_2_text",
+      "label": "Text",
+      "default": "<p>Another feature description that highlights key advantages.</p>"
+    },
+    {
+      "type": "text",
+      "id": "block_2_link_text",
+      "label": "Link text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "block_2_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Bottom section"
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "bottom_title",
+      "label": "Title",
+      "default": "Ready to get started?"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_text",
+      "label": "Text",
+      "default": "<p>Join thousands of satisfied customers who trust our platform.</p>"
+    },
+    {
+      "type": "text",
+      "id": "bottom_button_text",
+      "label": "Button text",
+      "default": "Get started"
+    },
+    {
+      "type": "url",
+      "id": "bottom_button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "block_background_color",
+      "label": "Block background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "block_text_color",
+      "label": "Block text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000f9f"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bottom_title_color",
+      "label": "Bottom title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bottom_text_color",
+      "label": "Bottom text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background color",
+      "default": "#000f9f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background_color",
+      "label": "Button hover background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "block_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Block text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Link size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "bottom_title_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom title size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "bottom_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Spacing and style"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "block_padding",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Block padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Block border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "bottom_image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom image border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content section"
+    }
+  ]
+}
 {% endschema %}
