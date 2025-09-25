@@ -1,0 +1,460 @@
+{% doc %}
+  @prompt
+    crie uma section com uma imagem na esquerda e dois menus na direita, entre a imagem e os menus deve haver o maximo de espeço possivel, e os menus devem ser duas colunas
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-image-menus-container-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    align-items: flex-start;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    min-height: 400px;
+  }
+
+  .ai-image-section-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    width: {{ block.settings.image_width }}%;
+    min-width: 200px;
+  }
+
+  .ai-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-image-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .ai-menus-section-{{ ai_gen_id }} {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.menus_gap }}px;
+    align-content: start;
+  }
+
+  .ai-menu-{{ ai_gen_id }} {
+    background-color: {{ block.settings.menu_background_color }};
+    border-radius: {{ block.settings.menu_border_radius }}px;
+    padding: {{ block.settings.menu_padding }}px;
+    border: {{ block.settings.menu_border_width }}px solid {{ block.settings.menu_border_color }};
+    height: fit-content;
+  }
+
+  .ai-menu-title-{{ ai_gen_id }} {
+    color: {{ block.settings.menu_title_color }};
+    font-size: {{ block.settings.menu_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 {{ block.settings.menu_title_spacing }}px 0;
+  }
+
+  .ai-menu-list-{{ ai_gen_id }} {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.menu_item_spacing }}px;
+  }
+
+  .ai-menu-item-{{ ai_gen_id }} {
+    margin: 0;
+  }
+
+  .ai-menu-link-{{ ai_gen_id }} {
+    color: {{ block.settings.menu_link_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.menu_link_size }}px;
+    display: block;
+    padding: {{ block.settings.menu_link_padding }}px;
+    border-radius: {{ block.settings.menu_link_border_radius }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-menu-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.menu_link_hover_color }};
+    background-color: {{ block.settings.menu_link_hover_background }};
+  }
+
+  .ai-menu-empty-{{ ai_gen_id }} {
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-image-menus-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.gap | times: 0.75 }}px;
+    }
+
+    .ai-image-section-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-menus-section-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;gap: {{ block.settings.menus_gap | times: 0.75 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-menus-section-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-image-menus-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-image-section-{{ ai_gen_id }}">
+    <div class="ai-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.image %}
+        <img
+          src="{{ block.settings.image | image_url: width: 800 }}"
+          alt="{{ block.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image.width }}"
+          height="{{ block.settings.image.height }}"
+        >
+      {% else %}
+        <div class="ai-image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-empty-state-{{ ai_gen_id }}">
+            Adicione uma imagem
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="ai-menus-section-{{ ai_gen_id }}">
+    <div class="ai-menu-{{ ai_gen_id }}">
+      {% if block.settings.menu_1_title != blank %}
+        <h3 class="ai-menu-title-{{ ai_gen_id }}">{{ block.settings.menu_1_title }}</h3>
+      {% endif %}
+      
+      {% if linklists[block.settings.menu_1] and linklists[block.settings.menu_1].links.size > 0 %}
+        <ul class="ai-menu-list-{{ ai_gen_id }}">
+          {% for link in linklists[block.settings.menu_1].links %}
+            <li class="ai-menu-item-{{ ai_gen_id }}">
+              <a href="{{ link.url }}" class="ai-menu-link-{{ ai_gen_id }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="ai-menu-empty-{{ ai_gen_id }}">
+          Selecione um menu para exibir os links
+        </div>
+      {% endif %}
+    </div><div class="ai-menu-{{ ai_gen_id }}">
+      {% if block.settings.menu_2_title != blank %}
+        <h3 class="ai-menu-title-{{ ai_gen_id }}">{{ block.settings.menu_2_title }}</h3>
+      {% endif %}
+      
+      {% if linklists[block.settings.menu_2] and linklists[block.settings.menu_2].links.size > 0 %}
+        <ul class="ai-menu-list-{{ ai_gen_id }}">
+          {% for link in linklists[block.settings.menu_2].links %}
+            <li class="ai-menu-item-{{ ai_gen_id }}">
+              <a href="{{ link.url }}" class="ai-menu-link-{{ ai_gen_id }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="ai-menu-empty-{{ ai_gen_id }}">
+          Selecione um menu para exibir os links
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Imagem e menus",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Largura da imagem",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Raio da borda da imagem",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Título do menu 1",
+      "default": "Menu Principal"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1"
+    },
+    {
+      "type": "header",
+      "content": "Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Título do menu 2",
+      "default": "Links Úteis"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Espaçamento entre imagem e menus",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "menus_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento entre menus",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding da seção",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo da seção",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Estilo dos menus"
+    },
+    {
+      "type": "color",
+      "id": "menu_background_color",
+      "label": "Cor de fundo dos menus",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "range",
+      "id": "menu_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Raio da borda dos menus",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "menu_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding dos menus",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "menu_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Largura da borda dos menus",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "menu_border_color",
+      "label": "Cor da borda dos menus",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Títulos dos menus"
+    },
+    {
+      "type": "color",
+      "id": "menu_title_color",
+      "label": "Cor dos títulos",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "menu_title_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho dos títulos",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "menu_title_spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Espaçamento abaixo dos títulos",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Links dos menus"
+    },
+    {
+      "type": "color",
+      "id": "menu_link_color",
+      "label": "Cor dos links",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "menu_link_hover_color",
+      "label": "Cor dos links ao passar o mouse",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "menu_link_hover_background",
+      "label": "Cor de fundo dos links ao passar o mouse",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "range",
+      "id": "menu_link_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho dos links",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "menu_link_padding",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding dos links",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "menu_link_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Raio da borda dos links",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "menu_item_spacing",
+      "min": 2,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaçamento entre links",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imagem e menus"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

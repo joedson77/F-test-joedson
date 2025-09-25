@@ -9,98 +9,6 @@
  */
 {
   "sections": {
-    "175882760597fcf5a9": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_9f10ad1_Vbw3FQ": {
-          "type": "ai_gen_block_9f10ad1",
-          "settings": {
-            "title": "How Splash Works",
-            "description": "<p>Splash is about <strong>you</strong>. That means we work hard to provide an amazing selection of wine at the best values. Never any obligation or auto-enrollment, simply choose the option that is best for you.</p>",
-            "block_1_image": "shopify://shop_images/bottles-icon.png",
-            "block_1_text": "<p>With plenty of options, expertly selected, our curated cases are perfect for exploring new wines.</p>",
-            "block_1_link_text": "Shop Curated Cases",
-            "block_1_link_url": "shopify://collections/limited-release-cases",
-            "block_2_image": "shopify://shop_images/box-icon.png",
-            "block_2_text": "<p>Know what you like? Start from scratch and build your own 15-bottle case, bottle by bottle.<br/><br/></p>",
-            "block_2_link_text": "Build Your Own Case",
-            "block_2_link_url": "shopify://collections/limited-release-cases",
-            "bottom_image": "shopify://shop_images/Stylized_Icons.png",
-            "bottom_title": "Join our Wine Club",
-            "bottom_text": "<p><br/>At Splash, subscribing to regular shipments is a benefit - you get consistently great prices and you are totally in control. As an added bonus, if you subscribe today, you ll get $20 off your first shipment - just use the code <strong>SUBSCRIBE </strong>at checkout! That means you that can get <strong>15 bottles for just $69 + FREE Shipping</strong> - our best ever price!<br/><br/></p>",
-            "bottom_button_text": "Learn More",
-            "bottom_button_url": "shopify://collections/limited-release-cases",
-            "background_color": "#ffffff",
-            "title_color": "#000000",
-            "text_color": "#666666",
-            "block_background_color": "#f9f9f9",
-            "block_text_color": "#333333",
-            "link_background_color": "#000000",
-            "link_text_color": "#ffffff",
-            "link_hover_background_color": "#333333",
-            "link_hover_text_color": "#ffffff",
-            "bottom_content_background_color": "#f5f5f5",
-            "bottom_title_color": "#000000",
-            "bottom_text_color": "#333333",
-            "bottom_button_background_color": "#000f9f",
-            "bottom_button_text_color": "#ffffff",
-            "bottom_button_hover_background_color": "#000000",
-            "bottom_button_hover_text_color": "#ffffff",
-            "title_size": 36,
-            "text_size": 16,
-            "block_text_size": 14,
-            "link_text_size": 14,
-            "bottom_title_size": 28,
-            "bottom_text_size": 16,
-            "bottom_button_text_size": 16,
-            "section_padding_top": 60,
-            "section_padding_bottom": 60,
-            "blocks_gap": 32,
-            "content_gap": 24,
-            "block_padding": 24,
-            "bottom_section_gap": 40,
-            "bottom_content_padding": 32,
-            "block_border_radius": 8,
-            "image_border_radius": 6,
-            "link_border_radius": 4,
-            "bottom_image_border_radius": 8,
-            "bottom_content_border_radius": 8,
-            "bottom_button_border_radius": 6
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_9f10ad1_Vbw3FQ"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -321,6 +229,10 @@
       "block_order": [
         "group_qBzy3b"
       ],
+      "custom_css": [
+        "div:has(> img) {display: flex; align-items: center; justify-content: center;}",
+        "img {width: 100%; height: 100%; object-fit: contain; object-position: center center; max-height: 200px;}"
+      ],
       "name": "t:names.collections_carousel",
       "settings": {
         "collection_list": [
@@ -392,6 +304,102 @@
       "block_order": [
         "ai_gen_block_dbc4ecb_rWbM3f"
       ],
+      "custom_css": [
+        "img {width: 100%; height: 100%; object-fit: contain; object-position: center;}"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "blocks_QXYFXR": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9f10ad1_qXyUL7": {
+          "type": "ai_gen_block_9f10ad1",
+          "settings": {
+            "title": "How Splash Works",
+            "description": "<p>Splash is about <strong>you</strong>. That means we work hard to provide an amazing selection of wine at the best values. Never any obligation or auto-enrollment, simply choose the option that is best for you.</p>",
+            "block_1_image": "shopify://shop_images/box-icon.png",
+            "block_1_text": "<p>With plenty of options, expertly selected, our curated cases are perfect for exploring new wines.</p>",
+            "block_1_link_text": "Shop Curated Cases",
+            "block_1_link_url": "shopify://collections/limited-release-cases",
+            "block_2_image": "shopify://shop_images/box-icon.png",
+            "block_2_text": "<p>Know what you like? Start from scratch and build your own 15-bottle case, bottle by bottle.<br/><br/></p>",
+            "block_2_link_text": "Build Your Own Case",
+            "block_2_link_url": "shopify://collections/limited-release-cases",
+            "bottom_image": "shopify://shop_images/Component_4.png",
+            "bottom_title": "Join our Wine Club",
+            "bottom_text": "<p><br/>At Splash, subscribing to regular shipments is a benefit - you get consistently great prices and you are totally in control. As an added bonus, if you subscribe today, you ll get $20 off your first shipment - just use the code <strong>SUBSCRIBE </strong>at checkout! That means you that can get <strong>15 bottles for just $69 + FREE Shipping</strong> - our best ever price!<br/><br/></p>",
+            "bottom_button_text": "Learn More",
+            "bottom_button_url": "shopify://collections/limited-release-cases",
+            "background_color": "#f5f3ef",
+            "title_color": "#000000",
+            "text_color": "#666666",
+            "block_background_color": "#f9f9f9",
+            "block_text_color": "#333333",
+            "link_background_color": "#000000",
+            "link_text_color": "#ffffff",
+            "link_hover_background_color": "#333333",
+            "link_hover_text_color": "#ffffff",
+            "bottom_content_background_color": "#ffffff",
+            "bottom_title_color": "#000000",
+            "bottom_text_color": "#333333",
+            "bottom_button_background_color": "#00000003",
+            "bottom_button_text_color": "#000000",
+            "bottom_button_hover_background_color": "#00000003",
+            "bottom_button_hover_text_color": "#000000",
+            "title_size": 36,
+            "text_size": 16,
+            "block_text_size": 14,
+            "link_text_size": 15,
+            "bottom_title_size": 28,
+            "bottom_text_size": 16,
+            "bottom_button_text_size": 16,
+            "section_padding_top": 48,
+            "section_padding_bottom": 48,
+            "blocks_gap": 32,
+            "content_gap": 24,
+            "block_padding": 16,
+            "bottom_section_gap": 32,
+            "bottom_content_padding": 24,
+            "block_border_radius": 18,
+            "image_border_radius": 0,
+            "link_border_radius": 0,
+            "bottom_image_border_radius": 8,
+            "bottom_content_border_radius": 8,
+            "bottom_button_border_radius": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9f10ad1_qXyUL7"
+      ],
+      "custom_css": [],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -422,9 +430,9 @@
     }
   },
   "order": [
-    "175882760597fcf5a9",
     "hero_jVaWmY",
     "collection_list_tKGy38",
-    "17588231002c981961"
+    "17588231002c981961",
+    "blocks_QXYFXR"
   ]
 }
