@@ -305,7 +305,9 @@
         "ai_gen_block_dbc4ecb_rWbM3f"
       ],
       "custom_css": [
-        "img {width: 100%; height: 100%; object-fit: contain; object-position: center;}"
+        "img {width: 100%; height: 100%; object-fit: contain; object-position: center;}",
+        ".ai-slider-nav-avfnjtjvsu3d2swfvcaigenblockdbc4ecbrwbm3f.next {right: -21px;}",
+        ".ai-slider-nav-avfnjtjvsu3d2swfvcaigenblockdbc4ecbrwbm3f.prev {left: -20px;}"
       ],
       "settings": {
         "content_direction": "column",
@@ -399,7 +401,11 @@
       "block_order": [
         "ai_gen_block_9f10ad1_qXyUL7"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".ai-content-block-asvdywfdrbwxxwgdncaigenblock9f10ad1qxyul7 {grid-template-columns: 1fr 2.5fr;}",
+        ".ai-content-block__image-asvdywfdrbwxxwgdncaigenblock9f10ad1qxyul7 {width: 55%;}",
+        ".ai-content-block__image-wrapper-asvdywfdrbwxxwgdncaigenblock9f10ad1qxyul7 {display: flex; justify-content: center;}"
+      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
