@@ -50,6 +50,10 @@
       "block_order": [
         "ai_gen_block_88195dc_CrpTxM"
       ],
+      "custom_css": [
+        ".ai-image-menus-container-arkramxvoanqwyxj1qaigenblock88195dccrptxm {min-height: unset;}",
+        ".ai-menus-section-arkramxvoanqwyxj1qaigenblock88195dccrptxm {flex: 1; display: flex; gap: 10px; align-content: center; justify-content: end; flex-direction: row;}"
+      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
