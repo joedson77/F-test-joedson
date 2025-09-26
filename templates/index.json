@@ -16,7 +16,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Cheers to saving on wine!Shop our Curated</h2><p></p><h4> Cases to get sensational savings<br/><br/></h4>",
+            "text": "<h2>Cheers to saving on wine! </h2><h4>Shop our Curated Cases to get sensational savings<br/><br/></h4>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
