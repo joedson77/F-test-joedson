@@ -1,6 +1,6 @@
 {% doc %}
   @prompt
-    Crie uma seção em duas colunas: na coluna esquerda use uma imagem de fundo com overlay claro, centralize verticalmente um título em destaque, um parágrafo curto e um botão de call-to-action que leva para uma collection; na coluna direita exiba um card de produto em formato de slider, mostrando imagem do pack de vinhos, título do produto, preço atual com o antigo riscado, selo de desconto em destaque e botão “Add to Cart”, incluindo navegação para trocar os produtos do slider.
+    Crie uma seção em duas colunas: na coluna esquerda use uma imagem de fundo com overlay claro, centralize verticalmente um título em destaque, um parágrafo curto e um botão de call-to-action que leva para uma collection; na coluna direita exiba um card de produto em formato de slider, mostrando imagem do pack de vinhos, título do produto, preço atual com o antigo riscado, selo de desconto em destaque e botão “Add to Cart”, incluindo navegação para trocar os produtos do slider., quero em ingles e o tamanho do bloco do banner seja de 70% e sem gap entre eles
 
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
@@ -8,7 +8,7 @@
 {% style %}
   .ai-wine-section-{{ ai_gen_id }} {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 70% 30%;
     min-height: 500px;
     gap: 0;}
 
@@ -36,8 +36,7 @@
 
   .ai-wine-section__left-placeholder-{{ ai_gen_id }} svg {
     width: 100%;
-    height: 100%;
-    max-width: 300px;
+    height: 100%;max-width: 300px;
     max-height: 300px;
     opacity: 0.3;
   }
@@ -62,9 +61,10 @@
 
   .ai-wine-section__title-{{ ai_gen_id }} {
     font-size: {{ block.settings.title_size }}px;
-    font-weight:700;
+    font-weight: 700;
     margin: 0 0 16px 0;
-    line-height: 1.2;}
+    line-height: 1.2;
+  }
 
   .ai-wine-section__description-{{ ai_gen_id }} {
     font-size: {{ block.settings.description_size }}px;
@@ -99,7 +99,8 @@
   .ai-wine-slider-{{ ai_gen_id }} {
     width: 100%;
     max-width: 350px;
-    position: relative;}
+    position: relative;
+  }
 
   .ai-wine-slider__container-{{ ai_gen_id }} {
     overflow: hidden;
@@ -165,7 +166,8 @@
   .ai-wine-slider__title-{{ ai_gen_id }} {
     font-size: 18px;
     font-weight: 600;
-    margin: 0 0 8px 0;color: {{ block.settings.card_text_color }};
+    margin: 0 0 8px 0;
+    color: {{ block.settings.card_text_color }};
   }
 
   .ai-wine-slider__price-{{ ai_gen_id }} {
@@ -274,7 +276,7 @@
   <div class="ai-wine-section__left-{{ ai_gen_id }}">
     {% unless block.settings.background_image %}
       <div class="ai-wine-section__left-placeholder-{{ ai_gen_id }}">
-        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        {{'hero-apparel-1' | placeholder_svg_tag }}
       </div>
     {% endunless %}
     
@@ -336,7 +338,8 @@
                     {% if product.compare_at_price > product.price %}
                       <span class="ai-wine-slider__price-old-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>
                     {% endif %}
-                  </div><button
+                  </div>
+                  <button
                     class="ai-wine-slider__add-to-cart-{{ ai_gen_id }}"
                     data-product-id="{{ product.id }}"
                     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
@@ -344,10 +347,10 @@
                     {{ block.settings.add_to_cart_text }}
                   </button>
                 {% else %}
-                  <h3 class="ai-wine-slider__title-{{ ai_gen_id }}">Selecione um produto</h3>
+                  <h3 class="ai-wine-slider__title-{{ ai_gen_id }}">Select a product</h3>
                   <div class="ai-wine-slider__price-{{ ai_gen_id }}">
-                    <span class="ai-wine-slider__price-current-{{ ai_gen_id }}">R$ 0,00</span>
-                </div>
+                    <span class="ai-wine-slider__price-current-{{ ai_gen_id }}">$0.00</span>
+                  </div>
                   <button class="ai-wine-slider__add-to-cart-{{ ai_gen_id }}" disabled>
                     {{ block.settings.add_to_cart_text }}
                   </button>
@@ -358,13 +361,13 @@
         </div>
       </div>
       
-      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--prev-{{ ai_gen_id }}" aria-label="Produto anterior">
+      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--prev-{{ ai_gen_id }}" aria-label="Previous product">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"></polyline>
         </svg>
       </button>
       
-      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--next-{{ ai_gen_id }}" aria-label="Próximo produto">
+      <button class="ai-wine-slider__nav-{{ ai_gen_id }} ai-wine-slider__nav--next-{{ ai_gen_id }}" aria-label="Next product">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="9,18 15,12 9,6"></polyline>
         </svg>
@@ -375,7 +378,7 @@
           <button 
             class="ai-wine-slider__dot-{{ ai_gen_id }}{% if forloop.first %} active{% endif %}"
             data-slide="{{ forloop.index0 }}"
-            aria-label="Ir para produto {{ forloop.index }}"
+            aria-label="Go to product {{ forloop.index }}"
           ></button>
         {% endfor %}
       </div>
@@ -405,7 +408,6 @@
     setupEventListeners() {
       this.prevBtn.addEventListener('click', () => this.previousSlide());
       this.nextBtn.addEventListener('click', () => this.nextSlide());
-      
       this.dots.forEach((dot, index) => {
         dot.addEventListener('click', () => this.goToSlide(index));
       });
@@ -482,16 +484,17 @@
       .then(response => response.json())
       .then(data => {
         const originalText = button.textContent;
-        button.textContent = 'Adicionado!';
+        button.textContent = 'Added!';
         button.disabled = true;
         
         setTimeout(() => {
           button.textContent = originalText;
           button.disabled = false;
-        }, 2000);document.dispatchEvent(new CustomEvent('cart:updated'));
+        }, 2000);
+        document.dispatchEvent(new CustomEvent('cart:updated'));
       })
       .catch(error => {
-        console.error('Erro ao adicionar ao carrinho:', error);
+        console.error('Error adding to cart:', error);
       });
     }
   }
@@ -502,21 +505,21 @@
 
 {% schema %}
 {
-  "name": "Seção de vinhos",
+  "name": "Wine section",
   "settings": [
     {
       "type": "header",
-      "content": "Imagem de fundo"
+      "content": "Background image"
     },
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Imagem de fundo"
+      "label": "Background image"
     },
     {
       "type": "color",
       "id": "overlay_color",
-      "label": "Cor do overlay",
+      "label": "Overlay color",
       "default": "#ffffff"
     },
     {
@@ -526,168 +529,168 @@
       "max": 80,
       "step": 5,
       "unit": "%",
-      "label": "Opacidade do overlay",
+      "label": "Overlay opacity",
       "default": 30
     },
     {
       "type": "header",
-      "content": "Conteúdo"
+      "content": "Content"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Título",
-      "default": "Vinhos Premium"
+      "label": "Title",
+      "default": "Premium Wines"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Descrição",
-      "default": "Descubra nossa seleção exclusiva de vinhos premium, cuidadosamente escolhidos para proporcionar experiências únicas."
+      "label": "Description",
+      "default": "Discover our exclusive selection of premium wines, carefully chosen to provide unique experiences."
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Texto do botão",
-      "default": "Ver coleção"
+      "label": "Button text",
+      "default": "View collection"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Coleção"
+      "label": "Collection"
     },
     {
       "type": "header",
-      "content": "Produtosdo slider"
+      "content": "Slider products"
     },
     {
       "type": "product",
       "id": "product_1",
-      "label": "Produto 1"
+      "label": "Product 1"
     },
     {
       "type": "product",
       "id": "product_2",
-      "label": "Produto 2"
+      "label": "Product 2"
     },
     {
       "type": "product",
       "id": "product_3",
-      "label": "Produto 3"
+      "label": "Product 3"
     },
     {
       "type": "text",
       "id": "add_to_cart_text",
-      "label": "Texto do botão adicionar",
-      "default": "Adicionar ao carrinho"
+      "label": "Add to cart button text",
+      "default": "Add to cart"
     },
     {
       "type": "header",
-      "content": "Coresdo conteúdo"
+      "content": "Content colors"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Cor do texto",
+      "label": "Text color",
       "default": "#000000"
     },
     {
       "type": "color",
       "id": "button_color",
-      "label": "Cor do botão",
+      "label": "Button color",
       "default": "#8B0000"
     },
     {
       "type": "color",
       "id": "button_text_color",
-      "label": "Cor do texto do botão",
+      "label": "Button text color",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "button_hover_color",
-      "label": "Cor do botão ao passar o mouse",
+      "label": "Button hover color",
       "default": "#660000"
     },
     {
       "type": "header",
-      "content": "Coresdo slider"
+      "content": "Slider colors"
     },
     {
       "type": "color",
       "id": "slider_background_color",
-      "label": "Fundo do slider",
+      "label": "Slider background",
       "default": "#f8f8f8"
     },
     {
       "type": "color",
       "id": "card_background_color",
-      "label": "Fundo do card",
+      "label": "Card background",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "card_text_color",
-      "label": "Cor do texto do card",
+      "label": "Card text color",
       "default": "#000000"
     },
     {
       "type": "color",
       "id": "price_color",
-      "label": "Cor do preço",
+      "label": "Price color",
       "default": "#8B0000"
     },
     {
       "type": "color",
       "id": "badge_color",
-      "label": "Cor do selo de desconto",
+      "label": "Discount badge color",
       "default": "#ff4444"
     },
     {
       "type": "color",
       "id": "badge_text_color",
-      "label": "Cor do texto do selo",
+      "label": "Badge text color",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "add_to_cart_color",
-      "label": "Cor do botão adicionar",
+      "label": "Add to cart button color",
       "default": "#8B0000"
     },
     {
       "type": "color",
       "id": "add_to_cart_text_color",
-      "label": "Cor do texto do botão adicionar",
+      "label": "Add to cart button text color",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "add_to_cart_hover_color",
-      "label": "Cor do botão adicionar ao passar o mouse",
+      "label": "Add to cart button hover color",
       "default": "#660000"
     },
     {
       "type": "color",
       "id": "nav_button_color",
-      "label": "Cor dos botões de navegação",
+      "label": "Navigation button color",
       "default": "#8B0000"
     },
     {
       "type": "color",
       "id": "nav_button_text_color",
-      "label": "Cor dosícones de navegação",
+      "label": "Navigation icon color",
       "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "nav_button_hover_color",
-      "label": "Cor dos botões de navegação ao passar o mouse",
+      "label": "Navigation button hover color",
       "default": "#660000"
     },
     {
       "type": "header",
-      "content": "Tamanhos"
+      "content": "Sizes"
     },
     {
       "type": "range",
@@ -696,7 +699,7 @@
       "max": 60,
       "step": 2,
       "unit": "px",
-      "label": "Tamanho do título",
+      "label": "Title size",
       "default": 36
     },
     {
@@ -706,7 +709,7 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Tamanho da descrição",
+      "label": "Description size",
       "default": 16
     },
     {
@@ -716,7 +719,7 @@
       "max": 30,
       "step": 2,
       "unit": "px",
-      "label": "Arredondamento dos botões",
+      "label": "Button border radius",
       "default": 8
     },
     {
@@ -726,13 +729,13 @@
       "max": 30,
       "step": 2,
       "unit": "px",
-      "label": "Arredondamento do card",
+      "label": "Card border radius",
       "default": 12
     }
   ],
   "presets": [
     {
-      "name": "Seção de vinhos"
+      "name": "Wine section"
     }
   ]
 }
