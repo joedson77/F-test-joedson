@@ -9,84 +9,6 @@
  */
 {
   "sections": {
-    "175885405700c99c83": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_67ef83f_hwnPmN": {
-          "type": "ai_gen_block_67ef83f",
-          "settings": {
-            "layout": "icons_first",
-            "icons_column_width": 70,
-            "image_column_width": 70,
-            "icons_per_row": 3,
-            "section_height": 300,
-            "spacing": 60,
-            "icons_background_color": "#ffffff",
-            "icons_padding": 55,
-            "icons_border_radius": 12,
-            "image": "shopify://shop_images/image-1.jpg",
-            "image_height": 200,
-            "image_border_radius": 8,
-            "image_object_fit": "cover",
-            "image_object_position": "center",
-            "icon_size": 60,
-            "icon_border_radius": 8,
-            "icon_spacing": 20,
-            "icon_rows_spacing": 35,
-            "icon_text_spacing": 12,
-            "icon_background_color": "#ffffff",
-            "icon_color": "#000000",
-            "title_font_size": 16,
-            "text_font_size": 14,
-            "title_color": "#000000",
-            "text_color": "#666666",
-            "icon_1_image": "shopify://shop_images/imagem_2025-09-25_234115804.png",
-            "icon_1_title": "Unbeatable Prices",
-            "icon_1_text": "",
-            "icon_2_image": "shopify://shop_images/imagem_2025-09-25_234233618.png",
-            "icon_2_title": "Fast & Easy Shipping",
-            "icon_2_text": "",
-            "icon_3_title": "",
-            "icon_3_text": "",
-            "icon_4_title": "",
-            "icon_4_text": "",
-            "icon_5_title": "",
-            "icon_5_text": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_67ef83f_hwnPmN"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -1051,10 +973,165 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "175885405700c99c83": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_67ef83f_hwnPmN": {
+          "type": "ai_gen_block_67ef83f",
+          "settings": {
+            "layout": "icons_first",
+            "icons_column_width": 70,
+            "image_column_width": 70,
+            "icons_per_row": 3,
+            "section_height": 300,
+            "spacing": 60,
+            "icons_background_color": "#ffffff",
+            "icons_padding": 55,
+            "icons_border_radius": 12,
+            "image": "shopify://shop_images/image-1.jpg",
+            "image_height": 200,
+            "image_border_radius": 8,
+            "image_object_fit": "cover",
+            "image_object_position": "center",
+            "icon_size": 60,
+            "icon_border_radius": 8,
+            "icon_spacing": 20,
+            "icon_rows_spacing": 35,
+            "icon_text_spacing": 12,
+            "icon_background_color": "#ffffff",
+            "icon_color": "#000000",
+            "title_font_size": 16,
+            "text_font_size": 14,
+            "title_color": "#000000",
+            "text_color": "#666666",
+            "icon_1_image": "shopify://shop_images/imagem_2025-09-25_234115804.png",
+            "icon_1_title": "Unbeatable Prices",
+            "icon_1_text": "",
+            "icon_2_image": "shopify://shop_images/imagem_2025-09-25_234233618.png",
+            "icon_2_title": "Fast & Easy Shipping",
+            "icon_2_text": "",
+            "icon_3_title": "",
+            "icon_3_text": "",
+            "icon_4_title": "",
+            "icon_4_text": "",
+            "icon_5_title": "",
+            "icon_5_text": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_67ef83f_hwnPmN"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "blocks_mgPjRh": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_67ef83f_ca9zLw": {
+          "type": "ai_gen_block_67ef83f",
+          "settings": {
+            "layout": "image_first",
+            "icons_column_width": 60,
+            "image_column_width": 50,
+            "icons_per_row": 5,
+            "section_height": 300,
+            "spacing": 60,
+            "icons_background_color": "#ffffff",
+            "icons_padding": 55,
+            "icons_border_radius": 12,
+            "image": "shopify://shop_images/image-1.jpg",
+            "image_height": 200,
+            "image_border_radius": 8,
+            "image_object_fit": "cover",
+            "image_object_position": "center",
+            "icon_size": 60,
+            "icon_border_radius": 8,
+            "icon_spacing": 20,
+            "icon_rows_spacing": 35,
+            "icon_text_spacing": 12,
+            "icon_background_color": "#ffffff",
+            "icon_color": "#000000",
+            "title_font_size": 16,
+            "text_font_size": 14,
+            "title_color": "#000000",
+            "text_color": "#666666",
+            "icon_1_image": "shopify://shop_images/imagem_2025-09-26_000412893.png",
+            "icon_1_title": "Gotta Love It Guarantee",
+            "icon_1_text": "",
+            "icon_2_image": "shopify://shop_images/imagem_2025-09-26_000451517.png",
+            "icon_2_title": "No Strings Attached",
+            "icon_2_text": "",
+            "icon_3_title": "",
+            "icon_3_text": "",
+            "icon_4_title": "",
+            "icon_4_text": "",
+            "icon_5_title": "",
+            "icon_5_text": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_67ef83f_ca9zLw"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
-    "175885405700c99c83",
     "hero_jVaWmY",
     "collection_list_tKGy38",
     "17588231002c981961",
@@ -1062,6 +1139,8 @@
     "17588330477955a288",
     "17588335542eb47451",
     "product_list_qyjCaM",
-    "section_wx4nYM"
+    "section_wx4nYM",
+    "175885405700c99c83",
+    "blocks_mgPjRh"
   ]
 }
