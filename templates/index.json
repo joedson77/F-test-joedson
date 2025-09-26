@@ -9,6 +9,84 @@
  */
 {
   "sections": {
+    "175885405700c99c83": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_67ef83f_hwnPmN": {
+          "type": "ai_gen_block_67ef83f",
+          "settings": {
+            "layout": "icons_first",
+            "icons_column_width": 70,
+            "image_column_width": 70,
+            "icons_per_row": 3,
+            "section_height": 300,
+            "spacing": 60,
+            "icons_background_color": "#ffffff",
+            "icons_padding": 55,
+            "icons_border_radius": 12,
+            "image": "shopify://shop_images/image-1.jpg",
+            "image_height": 200,
+            "image_border_radius": 8,
+            "image_object_fit": "cover",
+            "image_object_position": "center",
+            "icon_size": 60,
+            "icon_border_radius": 8,
+            "icon_spacing": 20,
+            "icon_rows_spacing": 35,
+            "icon_text_spacing": 12,
+            "icon_background_color": "#ffffff",
+            "icon_color": "#000000",
+            "title_font_size": 16,
+            "text_font_size": 14,
+            "title_color": "#000000",
+            "text_color": "#666666",
+            "icon_1_image": "shopify://shop_images/imagem_2025-09-25_234115804.png",
+            "icon_1_title": "Unbeatable Prices",
+            "icon_1_text": "",
+            "icon_2_image": "shopify://shop_images/imagem_2025-09-25_234233618.png",
+            "icon_2_title": "Fast & Easy Shipping",
+            "icon_2_text": "",
+            "icon_3_title": "",
+            "icon_3_text": "",
+            "icon_4_title": "",
+            "icon_4_text": "",
+            "icon_5_title": "",
+            "icon_5_text": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_67ef83f_hwnPmN"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -803,15 +881,187 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "section_wx4nYM": {
+      "type": "section",
+      "blocks": {
+        "group_qzzQwE": {
+          "type": "group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fill",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 28,
+            "placeholder": "",
+            "toggle_overlay": true,
+            "overlay_color": "#ffffff",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_Hbj6jt": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<p>Welcome to the Family</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_Jh4kL4": {
+              "type": "text",
+              "settings": {
+                "text": "<p><br/>We re a three-generation family business passionate about wine. While we love our<br/>history, we re even more excited about the future. For us, it s all about offering <strong>great<br/>wines, transparent pricing, and outstanding service.</strong> Our customers are family, and<br/>we work hard to earn and keep their trust.<br/><br/></p>",
+                "width": "fit-content",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_yJzg8V": {
+              "type": "button",
+              "settings": {
+                "label": "More About Splash",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button-secondary",
+                "width": "custom",
+                "custom_width": 60,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_Hbj6jt",
+            "text_Jh4kL4",
+            "button_yJzg8V"
+          ]
+        },
+        "image_HtMh6z": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Component_4.png",
+            "link": "",
+            "image_ratio": "square",
+            "width": "custom",
+            "custom_width": 52,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_qzzQwE",
+        "image_HtMh6z"
+      ],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
     }
   },
   "order": [
+    "175885405700c99c83",
     "hero_jVaWmY",
     "collection_list_tKGy38",
     "17588231002c981961",
     "blocks_QXYFXR",
     "17588330477955a288",
     "17588335542eb47451",
-    "product_list_qyjCaM"
+    "product_list_qyjCaM",
+    "section_wx4nYM"
   ]
 }
