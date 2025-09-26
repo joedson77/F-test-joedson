@@ -78,7 +78,7 @@
         "section_height_custom": 50,
         "color_scheme": "scheme-4",
         "toggle_overlay": true,
-        "overlay_color": "#00000041",
+        "overlay_color": "#00000040",
         "overlay_style": "solid",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
@@ -291,7 +291,7 @@
             "button_hover_bg": "#00000003",
             "button_border_color": "#000000",
             "button_border_width": 1,
-            "nav_bg_color": "#0000002c",
+            "nav_bg_color": "#0000002b",
             "nav_text_color": "#000000",
             "nav_hover_bg": "#e6e6e6",
             "tab_border_radius": 8,
@@ -846,10 +846,10 @@
             "overlay_color": "#ffffff",
             "overlay_style": "solid",
             "gradient_direction": "to top",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-start": 21,
+            "padding-block-end": 21,
+            "padding-inline-start": 21,
+            "padding-inline-end": 21
           },
           "blocks": {
             "text_Hbj6jt": {
